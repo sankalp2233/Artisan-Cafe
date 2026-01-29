@@ -3,7 +3,8 @@ import dbConnect from '@/lib/mongoose';
 import Menu from '@/models/Menu';
 
 // PUT update menu item (admin only)
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
     try {
         const token = req.headers.get('Authorization')?.replace('Bearer ', '');
         if (!token) {
@@ -12,7 +13,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
         await dbConnect();
         const body = await req.json();
-        const menuItem = await Menu.findByIdAndUpdate(params.id, body, {
+        const menuItem = await Menu.findByIdAndUpdate(id, body, {
             new: true,
             runValidators: true,
         });
@@ -28,7 +29,8 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 }
 
 // DELETE menu item (admin only)
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
     try {
         const token = req.headers.get('Authorization')?.replace('Bearer ', '');
         if (!token) {
@@ -36,7 +38,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
         }
 
         await dbConnect();
-        const menuItem = await Menu.findByIdAndDelete(params.id);
+        const menuItem = await Menu.findByIdAndDelete(id);
 
         if (!menuItem) {
             return NextResponse.json({ success: false, error: 'Menu item not found' }, { status: 404 });

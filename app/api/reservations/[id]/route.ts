@@ -3,7 +3,8 @@ import dbConnect from '@/lib/mongoose';
 import Reservation from '@/models/Reservation';
 
 // PUT update reservation status (admin only)
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
     try {
         const token = req.headers.get('Authorization')?.replace('Bearer ', '');
         if (!token) {
@@ -13,7 +14,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
         await dbConnect();
         const body = await req.json();
         const reservation = await Reservation.findByIdAndUpdate(
-            params.id,
+            id,
             { status: body.status },
             { new: true, runValidators: true }
         );
