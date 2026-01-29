@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-cafe-cream text-cafe-brown-800 font-sans;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-cafe-accent hover:bg-cafe-gold text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5;
+  }
+
+  .btn-secondary {
+    @apply bg-cafe-brown-600 hover:bg-cafe-brown-700 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300;
+  }
+
+  .btn-outline {
+    @apply border-2 border-cafe-accent text-cafe-accent hover:bg-cafe-accent hover:text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 border-2 border-cafe-brown-200 rounded-lg focus:outline-none focus:border-cafe-accent transition-colors duration-300 bg-white;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300;
+  }
+
+  .section-title {
+    @apply text-4xl md:text-5xl font-display font-bold text-cafe-brown-800 mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-lg md:text-xl text-cafe-brown-600 max-w-2xl mx-auto;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-cafe-accent to-cafe-gold bg-clip-text text-transparent;
+  }
+
+  .glass-effect {
+    @apply bg-white/80 backdrop-blur-md;
+  }
+}
